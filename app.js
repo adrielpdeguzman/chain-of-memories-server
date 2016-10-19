@@ -7,7 +7,9 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
 const config = require('./config');
-const users = require('./routes/user.js');
+const auth = require('./routes/auth');
+const user = require('./routes/user');
+const authMiddleware = require('./middlewares/auth');
 
 const app = express();
 const router = new express.Router();
@@ -22,7 +24,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 /**
  * Register API routes.
  */
-router.use('/users', users);
+router.use('/users', user);
+
+app.use('/auth', auth);
+app.use('/api/v1', authMiddleware.isAuthenticated);
+
 app.use('/api/v1', router);
 
 /**

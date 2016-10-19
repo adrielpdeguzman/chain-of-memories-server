@@ -50,6 +50,18 @@ userSchema.pre('validate', function (next) {
   next();
 });
 
+userSchema.methods.verifyPassword = function (password) {
+  return new Promise((resolve, reject) => {
+    bcrypt.compare(password, this.password, (err, success) => {
+      if (err) {
+        return reject(err);
+      }
+
+      return resolve(success);
+    });
+  });
+};
+
 userSchema.set('toJSON', {
   transform(doc, ret, options) {
     const obj = Object.assign({}, ret);
