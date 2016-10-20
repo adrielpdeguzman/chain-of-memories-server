@@ -79,4 +79,17 @@ module.exports = {
       return res.json({ user });
     });
   },
+
+  /**
+   * Read the authenticated user.
+   */
+  me(req, res, next) {
+    User.findById(req.sub).exec((err, user) => {
+      if (err) {
+        return next(err);
+      }
+
+      return res.json({ user });
+    });
+  },
 };

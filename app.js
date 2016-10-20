@@ -7,13 +7,10 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
 const config = require('./config');
-const auth = require('./routes/auth');
-const user = require('./routes/user');
-const authMiddleware = require('./middlewares/auth');
+const routes = require('./routes');
+const middlewares = require('./middlewares');
 
 const app = express();
-const router = new express.Router();
-
 app.use(logger('dev'));
 app.use(cookieParser());
 app.use(bodyParser.json());
@@ -22,35 +19,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 // app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 /**
- * Register API routes.
+ * Register API routes and middlewares.
  */
-router.use('/users', user);
-
-app.use('/auth', auth);
-app.use('/api/v1', authMiddleware.isAuthenticated);
-
-app.use('/api/v1', router);
-
-/**
- * Define error handlers.
- */
-if (app.get('env') === 'development') {
-  app.use((err, req, res, next) => {
-    res.status(err.status || 500)
-      .json({
-        message: err.message,
-        error: err,
-      });
-  });
-}
-
-app.use((err, req, res, next) => {
-  res.status(err.status || 500)
-    .json({
-      message: err.message,
-      error: {},
-    });
-});
+app.use(config.apiPrefix, middlewares.isAuthenticated);
+app.use(routes);
+app.use(middlewares.errorHandler);
 
 /**
  * Configure MongoDB connection.

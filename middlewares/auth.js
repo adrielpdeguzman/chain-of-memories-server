@@ -12,7 +12,7 @@ module.exports = {
           return next(err);
         }
 
-        req.user = decoded;
+        req.sub = decoded.sub;
 
         return next();
       });

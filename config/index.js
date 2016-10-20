@@ -2,6 +2,7 @@ const uuid = require('node-uuid');
 
 const config = {
   dev: {
+    apiPrefix: '/api/v1',
     mongoUri: 'mongodb://localhost/chainofmemories',
     jwtSecret: 'fefd78cf-614c-4b25-acff-4241f8dca800',
   },

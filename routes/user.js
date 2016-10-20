@@ -3,6 +3,7 @@ const controller = require('../controllers/user.js');
 
 const router = new express.Router();
 
+router.get('/me', controller.me);
 router.get('/', controller.index);
 router.post('/', controller.create);
 router.get('/:id', controller.read);
