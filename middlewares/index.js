@@ -4,6 +4,7 @@ const isAuthenticated = require('./auth').isAuthenticated;
 
 module.exports = {
   csrf,
-  errorHandler,
   isAuthenticated,
+  default: errorHandler.default,
+  notFound: errorHandler.notFound,
 };
