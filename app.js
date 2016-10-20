@@ -1,3 +1,4 @@
+const cors = require('cors');
 const path = require('path');
 const logger = require('morgan');
 const express = require('express');
@@ -14,6 +15,7 @@ const middlewares = require('./middlewares');
  * Configure express.
  */
 const app = express();
+app.use(cors());
 app.use(logger('dev'));
 app.use(cookieParser());
 app.use(bodyParser.json());
@@ -30,7 +32,8 @@ app.set('views', path.join(__dirname, 'public'));
 app.use(config.apiPrefix, middlewares.isAuthenticated);
 app.use(middlewares.csrf);
 app.use(routes);
-app.use(middlewares.errorHandler);
+app.use(middlewares.notFound);
+app.use(middlewares.default);
 
 /**
  * Configure MongoDB connection.
