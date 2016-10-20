@@ -1,5 +1,5 @@
-const sanitize = require('sanitize-html');
 const User = require('../models/user');
+const sanitize = require('sanitize-html');
 
 module.exports = {
   /**
@@ -11,7 +11,7 @@ module.exports = {
         return next(err);
       }
 
-      return res.json({ users });
+      return res.json(users);
     });
   },
 
@@ -31,7 +31,7 @@ module.exports = {
         return next(err);
       }
 
-      return res.status(201).json({ user });
+      return res.status(201).json(user);
     });
   },
 
@@ -44,7 +44,7 @@ module.exports = {
         return next(err);
       }
 
-      return res.json({ user });
+      return res.json(user);
     });
   },
 
@@ -63,7 +63,7 @@ module.exports = {
         return next(err);
       }
 
-      return res.json({ user });
+      return res.json(user);
     });
   },
 
@@ -76,7 +76,7 @@ module.exports = {
         return next(err);
       }
 
-      return res.json({ user });
+      return res.json(user);
     });
   },
 
@@ -89,7 +89,7 @@ module.exports = {
         return next(err);
       }
 
-      return res.json({ user });
+      return res.json(user);
     });
   },
 };
