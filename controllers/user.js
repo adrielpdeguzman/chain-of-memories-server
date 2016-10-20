@@ -1,5 +1,5 @@
-const sanitize = require('sanitize-html');
 const User = require('../models/user');
+const sanitize = require('sanitize-html');
 
 module.exports = {
   /**

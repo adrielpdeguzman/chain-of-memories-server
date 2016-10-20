@@ -1,12 +1,15 @@
 const app = require('express');
-const config = require('../config');
 const auth = require('./auth.js');
 const users = require('./user.js');
+const config = require('../config');
 const journals = require('./journal.js');
 
 const router = new app.Router();
 const prefix = config.apiPrefix;
 
+router.get('/', (req, res, next) => {
+  res.render('index', { title: 'Chain of Memories', csrfToken: req.csrfToken() });
+});
 router.use('/auth', auth);
 
 router.use(`${prefix}/users`, users);
