@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const autopopulate = require('mongoose-autopopulate');
 
 const Schema = mongoose.Schema;
 const journalSchema = new Schema({
@@ -6,6 +7,7 @@ const journalSchema = new Schema({
     type: Schema.Types.ObjectId,
     required: true,
     ref: 'User',
+    autopopulate: true,
   },
 
   publishDate: {
@@ -34,5 +36,8 @@ const journalSchema = new Schema({
 }, {
   timestamps: true,
 });
+
+journalSchema.index({ publishDate: 1, user: 1 }, { unique: true });
+journalSchema.plugin(autopopulate);
 
 module.exports = mongoose.model('Journal', journalSchema);
